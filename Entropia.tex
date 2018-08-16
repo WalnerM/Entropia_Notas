@@ -1,0 +1,499 @@
+%------------------------------------------------------------------------------
+% Beginning of journal.tex
+%------------------------------------------------------------------------------
+%
+% AMS-LaTeX version 2 sample file for journals, based on amsart.cls.
+%
+%        ***     DO NOT USE THIS FILE AS A STARTER.      ***
+%        ***  USE THE JOURNAL-SPECIFIC *.TEMPLATE FILE.  ***
+%
+% Replace amsart by the documentclass for the target journal, e.g., tran-l.
+%
+\documentclass{amsart}
+
+%     If your article includes graphics, uncomment this command.
+\usepackage{graphicx}
+\usepackage[latin1]{inputenc}
+\usepackage[brazil]{babel}
+\usepackage{marginnote}
+\usepackage[pdftex,bookmarks,colorlinks]{hyperref}
+\usepackage{bm}
+
+\theoremstyle{theorem}
+\newtheorem{teorema}{Teorema}[section]
+\newtheorem{proposicao}{Proposi\c{c}\~{a}o}[section]
+\newtheorem{corolario}{Corol\'{a}rio}[section]
+\newtheorem{lema}{Lema}[section]
+
+
+\theoremstyle{definition}
+\newtheorem{df}{Defini\c{c}\~{a}o}[section]
+\newtheorem{nt}{Nota\c{c}\~{a}o}[section]
+\newtheorem{ex}{Exemplo}[section]
+\newtheorem{obs}{Observa\c{c}\~{a}o}[section]
+
+\theoremstyle{remark}
+\newtheorem{remark}{Remark}[section]
+\newtheorem{conjectura}{Conjectura}[section]
+\newtheorem{fato}{Fato}[section]
+
+\numberwithin{equation}{section}
+
+
+\newcommand{\mn}[1]{\emph{#1} \marginpar[\begin{flushright} \footnotesize{\emph{#1}}\end{flushright}]{\begin{flushleft}\footnotesize{\emph{#1}}\end{flushleft}}}
+\newcommand{\mnn}[1]{\marginpar[\begin{flushright} \footnotesize{#1}\end{flushright}]{\begin{flushleft}\footnotesize{#1}\end{flushleft}}}
+
+
+\renewcommand{\mod}[1]{\quad(\mathrm{mod}\;#1)}
+\newcommand{\PPP}[1]{\mathbb{P}}
+\newcommand{\PP}[1]{\mathbb{P}\left\{ #1 \right\}}
+\newcommand{\EE}[1]{\mathbb{E}\left\{ #1 \right\}}
+\newcommand{\HH}[1]{\mathbb{H}\left\{ #1 \right\}}
+\newcommand{\II}[1]{\mathbb{I}\left\{ #1 \right\}}
+\newcommand{\NN}{\mathbb{N}}
+\newcommand{\QQ}{\mathbb{Q}}
+\newcommand{\RR}{\mathbb{R}}
+\newcommand{\Om}{\Omega}
+\newcommand{\supp}[1]{\mathrm{supp} #1}
+\newcommand{\perm}[1]{\mathrm{perm} #1}
+\newcommand{\ii}[1]{\mathrm{\textit{i}} #1}
+
+
+%    Absolute value notation
+\newcommand{\abs}[1]{\lvert#1\rvert}
+
+%    Blank box placeholder for figures (to avoid requiring any
+%    particular graphics capabilities for printing this document).
+\newcommand{\blankbox}[2]{%
+  \parbox{\columnwidth}{\centering
+%    Set fboxsep to 0 so that the actual size of the box will match the
+%    given measurements more closely.
+    \setlength{\fboxsep}{0pt}%
+    \fbox{\raisebox{0pt}[#2]{\hspace{#1}}}%
+  }%
+}
+
+\begin{document}
+
+\title{M\'{e}todo da Entropia M\'{a}xima}
+
+%    Information for first author
+\author{Walner Mendon\c{c}a dos Santos\\}
+%    Address of record for the research reported here
+\address{Universidade Federal do Cear\'{a}}
+%    Current address
+%\curraddr{Department of Mathematics and Statistics, Case Western Reserve University, Cleveland, Ohio 43403}
+\email{walner@alu.ufc.br}
+%    \thanks will become a 1st page footnote.
+%\thanks{The first author was supported in part by NSF Grant \#000000.}
+
+%    Information for second author
+\author{Fabricio Siqueira Benevides}
+%\address{Universidade Federal do Cear\'{a}}
+%\email{fabricio@mat.ufc.br}
+%\thanks{Support information for the second author.}
+
+%    General info
+%\subjclass[2000]{Primary 54C40, 14E20; Secondary 46E25, 20C20}
+
+\date{Janeiro de 2014.}
+
+%\dedicatory{This paper is dedicated to our advisors.}
+
+\keywords{Combinat\'{o}ria, M\'{e}todo da entropia m\'{a}xima}
+
+\begin{abstract}
+Notas de estudo.
+\end{abstract}
+
+\maketitle
+
+\tableofcontents
+
+\section{Introdu\c{c}\~{a}o}
+Minhas principais refer\^{e}ncias s\~{a}o \cite{razborov,sudakov}.
+
+Seja $X$ uma vari\'{a}vel aleat\'{o}ria definida em um espa\c{c}o de probabilidade $\Om := (\Omega,\Sigma,\mathbb{P})$. Denotamos por $\supp{X} := \{x \in \RR \; : \PP{X=x} \neq 0 \}$ o \mn{suporte} da vari\'{a}vel aleat\'{o}ria $X$. Dizemos que $X$ possui suporte finito quando $\supp{X}$ \'{e} um conjunto finito. A \mn{entropia} de uma vari\'{a}vel aleat\'{o}ria $X$ com suporte finito \'{e} definido como \mnn{$\HH{X}$}
+\begin{equation}\label{eq1}
+  \HH{X} = \sum_{x \in \supp{X}} \PP{X = x} \log{\frac{1}{\PP{X=x}}},
+\end{equation}
+onde o logaritmo acima (bem como durante todo o texto) \'{e} tomado na base 2. Observe que o somat\'{o}rio acima est\'{a} bem determinado, uma vez que trata-se de uma soma de uma quantidade finita de termos. Este \'{e} o motivo de exigirmos que $X$ possua suporte finito. Contudo, \'{e} conveniente definirmos $0\log(0) = 0\log(\frac{1}{0}) = 0$, pois assim n\~{a}o precisaremos se preocupar muito com detalhes como estes.
+
+Para eventuais simplifica\c{c}\~{o}es na nota\c{c}\~{a}o, escreveremos o somat\'{o}rio acima da seguinte forma
+\begin{equation}\label{eq2}
+  \HH{X} = -\sum_{x} p(x) \log{{p(x)}},
+\end{equation}
+onde denotamos $p(x) = \PP{X = x}$ e omitimos que $x \in \supp{X}$ (o que dever\'{a} sempre estar subentendido ao longo deste texto) e usamos que $\log(1/y) = - \log{y}$.
+
+Deve-se observar que a defini\c{c}\~{a}o de entropia de uma vari\'{a}vel aleat\'{o}ria $X$ n\~{a}o leva em conta os valores que $X$ atinge nem muito menos a natureza de $X$. Tudo que precisamos para determinar $\HH{X}$ \'{e} da sua distribui\c{c}\~{a}o de probabilidade. Assim, por exemplo, se $Y$ \'{e} outra vari\'{a}vel aleat\'{o}ria definida sobre o mesmo espa\c{c}o de probabilidade que $X$, e existe uma fun\c{c}\~{a}o $\phi$ tal que $Y = \phi \circ X$, ent\~{a}o $\HH{Y} = \HH{X}$. Na verdade, $Y$ pode at\'{e} mesmo ser um vetor aleat\'{o}rio; se ainda existe fun\c{c}\~{a}o $\phi$ tal que $Y = \phi \circ X$, temos $\HH{Y} = \HH{X}$.
+
+\begin{ex}\label{ex1}
+  Seja $p\in[0,1]$ e considere $X_p$ a vari\'{a}vel aleat\'{o}ria de Bernoulli, a qual \'{e} $1$ com probabilidade $p$ e \'{e} $0$ com probabilidade $p-1$. Se $p\in (0,1)$, ent\~{a}o temos que $\supp{X_p} = \{0,1\}$; e assim $\HH{X_p} = -p\log{p} - (1-p)\log(1-p)$. Para $p\in\{0,1\}$, temos $\supp{X_0} = \{0\}$ e $\supp{X_1} = \{1\}$; e $\HH{X_0} = \HH{X_1} = 0$. Definimos a fun\c{c}\~{a}o de entropia bin\'{a}ria $H(p) := \HH{X_p}$. Observe que $H(p)$ \'{e} n\~{a}o-negativo, para todo $p\in[0,1]$. Vale tamb\'{e}m que $H(p)$ atinge o seu m\'{a}ximo (que \'{e} $1$) em $p = 1/2$, isto \'{e}, quando $X_p$ \'{e} uniforme.
+\end{ex}
+
+
+\begin{proposicao}
+  Seja $X$ uma vari\'{a}vel aleat\'{o}ria com suporte finito. Ent\~{a}o
+  \begin{equation*}
+    0 \leq \HH{X} \leq \log{|\supp{X}|}.
+  \end{equation*}
+  Teremos a igualdade na segunda desigualdade se $X$ possui distribui\c{c}\~{a}o uniforme.
+
+  \begin{proof}
+    Que $\HH{X} \geq 0$ segue do fato de que $\log \frac{1}{p} \geq 0$, para $0<p\leq 1$. Quanto a outra desigualdade, da convexidade de $\log(y)$, temos que
+    \begin{equation*}
+      \HH{X} = \sum_{x} p(x) \log \frac{1}{p(x)}  \leq \log{ \left( \sum_{x} p(x) \frac{1}{p(x)}\right) } = \log\left( \sum_{x} 1\right) =\log|\supp{X}|.
+    \end{equation*}
+    Se $X$ possui distribui\c{c}\~{a}o uniforme, ent\~{a}o $p(x) = \frac{1}{|\supp{X}|}$ e dai
+    \begin{equation*}
+      \HH{X} = \sum_{x} p(x) \log \frac{1}{p(x)}  = \sum_{x} p(x) \log |\supp{X}| = \log{|\supp{X}|}.
+    \end{equation*}
+%
+%    \begin{equation*}
+%    \begin{array}{rcl}
+%        \HH{X} - \log{s} &=& \displaystyle \sum_{x} p(x) \log \frac{1}{p(x)} - \sum_{x} p(x) \log{s}\\
+%         &=& \displaystyle \sum_{x} p(x) \log \frac{1}{p(x) s}\\
+%         &\leq& \displaystyle \log{ \left( \sum_{x} p(x) \frac{1}{p(x) s}\right) }\\
+%         &=& \log 1 = 0.
+%    \end{array}
+%    \end{equation*}
+%    E uma vez que $s\geq1$, temos que $p(x)\log{\frac{1}{p(x) s} \geq 0$
+%
+      \end{proof}
+\end{proposicao}
+
+Classicamente se diz que a entropia de uma vari\'{a}vel aleat\'{o}ria $X$ mede a \emph{quantidade} ou o \emph{potencial} de informa\c{c}\~{a}o de $X$. Mas dizer isto \'{e} como dizer que o valor esperado mede a m\'{e}dia da vari\'{a}vel aleat\'{o}ria; \'{e} uma afirma\c{c}\~{a}o baseada no senso comum, e n\~{a}o na matem\'{a}tica. O que de fato induz a interpreta\c{c}\~{a}o de que a entropia mede a quantidade de informa\c{c}\~{a}o s\~{a}o as suas propriedades. Com a proposi\c{c}\~{a}o seguinte poderemos ver por qu\^{e} esta interpreta\c{c}\~{a}o da entropia \'{e} v\'{a}lida. Mas antes, precisamos de algumas outras defini\c{c}\~{o}es.
+
+
+  Considere o espa\c{c}o de probabilidade $(\Omega,\Sigma,\mathbb{P})$. Dados dois eventos aleat\'{o}rios $A,B\in \Sigma$, denotamos $\PP{A,B} = \PP{A\cap B}$ para a probabilidade de ambos os eventos ocorrerem. A probabilidade condicional $\PP{A|B}$ do evento aleat\'{o}rio $A$ condicionado ao evento $B$ \'{e} definida como
+  \begin{equation}
+    \PP{A|B} = \frac{\PP{A \cap B}}{\PP{B}},
+  \end{equation}
+  desde que $\PP{B}\neq 0$. Caso $\PP{B} = 0$, pode-se definir a probabilidade condicional de $A$ dado $B$ de qualquer maneira. Muitos livros adotam que neste caso $\PP{A|B}$ deve ser zero. Contudo, convencionaremos $\PP{A|B} = \PP{A}$, quando $\PP{B} = 0$. Esta conven\c{c}\~{a}o n\~{a}o \'{e} t\~{a}o aleat\'{o}ria. De fato, a probabilidade condicional definida desta maneira nos permite considerar $\mathbb{P}_{B}{[A]}:=\PP{A|B}$ como uma probabilidade definida na $\sigma$-\'{a}lgebra $(\Omega,\Sigma)$ determinando, assim, o espa\c{c}o de probabilidade $(\Omega,\Sigma,\mathbb{P}_{B})$ mesmo no caso em que $\PP{B} = 0$, j\'{a} que a\'{\i} teremos $\mathbb{P}_{B} \equiv \mathbb{P}$. A vantagem adicional com esta conven\c{c}\~{a}o \'{e} que a defini\c{c}\~{a}o de entropia condicional, como veremos abaixo, se adapta ao caso de eventos com probabilidade nula.
+
+
+Dado duas vari\'{a}veis aleat\'{o}rias $X$ e $Y$, ambas definidas sobre o mesmo espa\c{c}o de probabilidade e com suporte finito, consideramos o vetor aleat\'{o}rio $(X,Y)$ e denotamos por $\supp{(X,Y)} := \{(x,y) \in X\times Y\;:\PP{X=x,Y=y}\neq0 \}$ o suporte de $(X,Y)$. Definimos a \mn{entropia conjunta} de $X$ e $Y$ como \mnn{$\HH{X,Y}$}
+\begin{equation}\label{eq3}
+  \HH{X,Y} = \sum_{(x,y)\in \supp{(X,Y)} } \PP{X=x,Y=y} \log{\frac{1}{\PP{X=x,Y=y}}}.
+\end{equation}
+Ou, com a nota\c{c}\~{a}o simplificada similar a da equa\c{c}\~{a}o \ref{eq2},
+\begin{equation}\label{eq4}
+  \HH{X,Y} = -\sum_{x,y} p(x,y) \log{{p(x,y)}}.
+\end{equation}
+Observe que $\supp{(X,Y)} \subseteq \supp{X}\times \supp{Y}$, pois $p(x,y) \leq \min\{p(x),p(y)\}$, assim o somat\'{o}rio acima deve ser finito. Atente para o fato de que a inclus\~{a}o contr\'{a}ria nem sempre \'{e} v\'{a}lida (exemplos?). Veja tamb\'{e}m que se $X$ e $Y$ s\~{a}o independentes, ent\~{a}o $\HH{X,Y} = \HH{X} + \HH{Y}$. A rec\'{\i}proca deste fato n\~{a}o precisa ser verdadeira.
+
+Ainda com respeito a $X$ e $Y$, definimos a \mn{entropia condicional} de $X$ dado $Y$ como \mnn{$\HH{X|Y}$}
+\begin{equation}\label{eq5}
+  \HH{X|Y} = \sum_{(x,y)\in \supp{(X,Y)} } \PP{X=x,Y=y} \log{\frac{1}{\PP{X=x|Y=y}}}.
+\end{equation}
+Observe que $\PP{X=x|Y=y} = 0$ se, e somente se, $\PP{X=x,Y=y} = 0$. Assim, faz sentido tomar $(x,y)\in \supp{(X,Y)}$ no somat\'{o}rio acima e pelo mesmo motivo que no par\'{a}grafo anterior, o somat\'{o}rio acima \'{e} finito. De maneira simplificada, podemos escrever,
+\begin{equation}\label{eq6}
+  \HH{X|Y} = -\sum_{x,y} p(x,y) \log{p(x|y)}.
+\end{equation}
+Veja que quando $X$ e $Y$ s\~{a}o independentes, temos $\HH{X|Y} = \HH{X}$. Em geral, n\~{a}o \'{e} v\'{a}lido a rec\'{\i}proca deste fato.
+
+Definimos a \mn{informa\c{c}\~{a}o m\'{u}tua} de $X$ e $Y$ como \mnn{$\II{X,Y}$}
+\begin{equation}\label{eq5}
+  \II{X,Y} = \sum_{(x,y)\in \supp{(X,Y)} } \PP{X=x,Y=y} \log{\frac{\PP{X=x,Y=y}}{\PP{X=x} \PP{Y=y}}}.
+\end{equation}
+Veja que, como observado antes, $\supp{(X,Y)} \subseteq \supp{X}\times \supp{Y}$; e portanto n\~{a}o temos indetermina\c{c}\~{a}o no logaritmo do somat\'{o}rio acima. Podemos escrever a informa\c{c}\~{a}o m\'{u}tua de uma maneira mais simplificada:
+\begin{equation}\label{eq6}
+  \II{X,Y}  = \sum_{x,y } p(x,y) \log{\frac{p(x,y)}{p(x)p(y)}}.
+\end{equation}
+Veja que se $X$ e $Y$ s\~{a}o independentes, ent\~{a}o $\II{X,Y} = 0$. Contudo a rec\'{\i}proca deste fato n\~{a}o precisa ser verdade.
+
+Agora vejamos como as defini\c{c}\~{o}es acima se relacionam.
+
+\begin{proposicao}
+  Sejam $X$ e $Y$ vari\'{a}veis aleat\'{o}rias com suporte finito definidas sobre o mesmo espa\c{c}o de probabilidade. Valem as seguintes propriedades da entropia:
+  \begin{enumerate}
+    \item[(i)] $\HH{X,Y} = \HH{X} + \HH{Y|X}\geq 0$;
+    \item[(ii)] $\II{X,Y} = \HH{X} - \HH{X|Y}\geq 0$;
+    \item[(iii)] $\HH{X,Y} = \HH{X} + \HH{Y} - \II{X,Y} = \HH{X|Y} + \HH{Y|X} + \II{X,Y}$
+    \item[(iv)] $ \HH{X|Y} \leq \HH{X}\leq \HH{X,Y}$.
+  \end{enumerate}
+
+  \begin{proof}
+    (i) Uma vez que $p(x,y) = p(x)p(y|x)$, temos
+    \begin{equation*}
+    \begin{array}{rcl}
+      \HH{X,Y} & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{1}{p(x,y)} \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{1}{p(x)p(y|x)} \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \left[\log \frac{1}{p(x)} + \log \frac{1}{p(y|x)}\right] \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{1}{p(x)} + \sum_{x,y} p(x,y) \log \frac{1}{p(y|x)} \\
+        & = & \HH{X} + \HH{Y|X}
+    \end{array}
+    \end{equation*}
+    E $\HH{X,Y} \geq 0$ pelo mesmo motivo que $\HH{X} \geq0$ na proposi\c{c}\~{a}o anterior.
+
+    (ii) Uma vez que $p(x,y)/p(y) = p(x|y)$, temos
+    \begin{equation*}
+    \begin{array}{rcl}
+      \II{X,Y} & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{p(x|y)}{p(x)} \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \left[\log \frac{1}{p(x)} - \log \frac{1}{p(x|y)}\right] \\
+        & = & \displaystyle \sum_{x,y} p(x,y) \log \frac{1}{p(x)} - \sum_{x,y} p(x,y) \log \frac{1}{p(x|y)} \\
+        & = & \HH{X} - \HH{X|Y}
+    \end{array}
+    \end{equation*}
+    Quanto $\II{X,Y} \geq 0$, veja que isto n\~{a}o segue como no item (i), pois $\frac{p(x,y)}{p(x)p(y)}$ n\~{a}o necessariamente \'{e} maior do que ou igual a 1. Contudo, podemos usar o fato de que a fun\c{c}\~{a}o $f(x) = \log{\frac{1}{x}} = - \log{x}$ \'{e} c\^{o}ncava, para $x>0$:
+    \begin{equation*}
+    \begin{array}{rcl}
+      \II{X} &=& \displaystyle \sum_{x,y} p(x,y) \log \frac{p(x,y)}{p(x)p(y)} \\
+        &=& \displaystyle \sum_{x,y} p(x,y) f\left(\frac{p(x)p(y)}{p(x,y)}\right) \\
+        &\geq& \displaystyle f\left( \sum_{x,y} p(x,y) \frac{p(x)p(y)}{p(x,y)}\right) \\
+        &=& \displaystyle f\left(\sum_{x,y} p(x)p(y)\right) \\
+        &=& f(1) = 0
+    \end{array}
+    \end{equation*}
+
+    Os itens (iii) e (iv) seguem diretamente dos itens (i) e (ii).
+  \end{proof}
+\end{proposicao}
+
+Seguindo a ideia de que a entropia mede a \emph{quantidade de informa\c{c}\~{a}o} (ou o \emph{potencial de informa\c{c}\~{a}o}) que a vari\'{a}vel aleat\'{o}ria possui, cada item da proposi\c{c}\~{a}o anterior passa a ter uma interpreta\c{c}\~{a}o que conv\'{e}m com a nossa intui\c{c}\~{a}o de algo que seja capaz de medir quantidade de informa\c{c}\~{a}o de alguma coisa. Por exemplo, a primeira desigualdade no item (iv) pode ser interpretado assim: ``o fato de eu j\'{a} possuir a informa\c{c}\~{a}o de $Y$, s\'{o} torna a informa\c{c}\~{a}o de $X$ menos valorizada''.
+
+Na pr\'{o}xima proposi\c{c}\~{a}o trataremos da entropia de um vetor aleat\'{o}rio do tipo $X = (X_1,\ldots,X_n)$, onde $X_k$ s\~{a}o vari\'{a}veis aleat\'{o}rias. Deve-se observar que a defini\c{c}\~{a}o de entropia de um vetor aleat\'{o}rio segue como generaliza\c{c}\~{a}o da entropia conjunta definida acima. Da mesma maneira, a entropia condicional entre vetores aleat\'{o}rios segue como generaliza\c{c}\~{a}o da entropia condicional entre vari\'{a}veis aleat\'{o}rias. Assim, por exemplo, faz sentido determinar a entropia condicional $\HH{X|Y}$ entre dois vetores aleat\'{o}rios $X = (X_1,\ldots,X_n)$ e $Y = (Y_1,\ldots,Y_m)$ e escrevemos $\HH{X|Y} = \HH{X_1,\ldots,X_n|Y_1,\ldots,Y_m}$.
+
+\begin{proposicao}[Regra da Cadeia e Subaditividade]
+  Sejam $X_1,\ldots,X_n$ vari\'{a}veis aleat\'{o}rias com suporte finito definidas sobre o mesmo espa\c{c}o de probabilidade. Ent\~{a}o vale a seguinte identidade conhecida como regra da cadeia:
+  \begin{equation}
+    \HH{X_1,\ldots,X_n} = \sum_{k=1}^{n} \HH{X_k|X_{k-1},\ldots,X_1}.
+  \end{equation}
+  Ademais, vale a propriedade da subaditividade para a entropia:
+  \begin{equation}
+    \HH{X_1,\ldots,X_n} \leq \sum_{k=1}^{n} \HH{X_k}.
+  \end{equation}
+  \begin{proof}
+    Provamos a regra da cadeia por indu\c{c}\~{a}o em $n$. O caso $n=2$ corresponde ao item (ii) da proposi\c{c}\~{a}o anterior. Suponha que $n>2$ e que a regra da cadeia seja v\'{a}lido para $n-1$ vari\'{a}veis aleat\'{o}rias $X_1,\ldots,X_{n-1}$. Temos que
+    \begin{equation*}
+    \begin{array}{rcl}
+      \HH{X_1,\ldots,X_{n-1},X_n} &=& \HH{X_1,\ldots,X_{n-1}} + \HH{X_n|X_1,\ldots,X_{n-1}}\\
+       &=& \displaystyle \sum_{k=1}^{n-1} \HH{X_k|X_{k-1},\ldots,X_1} + \HH{X_n|X_1,\ldots,X_{n-1}}\\
+       &=& \displaystyle \sum_{k=1}^{n} \HH{X_k|X_{k-1},\ldots,X_1}.
+    \end{array}
+    \end{equation*}
+    Ent\~{a}o a regra da cadeia tamb\'{e}m vale para $n$. A subaditividade segue ent\~{a}o da primeira desigualdade do item (v) na proposi\c{c}\~{a}o anterior aplicada em cada parcela da regra da cadeia.
+  \end{proof}
+\end{proposicao}
+
+
+Vejamos agora um exemplo no qual podemos aplicar a entropia para determinar algo inesperado: a desigualdade de Cauchy-Swartz. Tal exemplo foi retirado da refer\^{e}ncia \cite{}.
+
+\begin{ex}
+  Sejam $a_1,\ldots,a_n$ e $b_1,\ldots,b_n$ inteiros positivos. Considere $A_1,\ldots,A_n$ subconjuntos dois a dois disjuntos e com $|A_i| = a_i$, para $i = 1,\ldots,n$. Da mesma maneira, considere $B_1,\ldots,B_n$ subconjuntos dois a dois disjuntos e com $|B_i| = b_i$, para $i = 1,\ldots,n$. Seja $R_i = A_i\times B_i$ e $R = \cup_{i=1}^{n} R_i$.
+%
+%    Um \'{\i}ndice $r$ dever\'{a} ser escolhido de $\{1,\ldots,n\}$ com probabilidade
+%    \begin{equation*}
+%      \PP{r=i} = \frac{|R_i|}{|R|} = \frac{a_i b_i}{\sum_{k=1}^{n} a_k b_k}.
+%    \end{equation*}
+%    Agora dois pontos $v_1 = (x_1,y_1)$ e $v_2 = (x_2,y_2)$ dever\~{a}o ser sorteados de $R_i$ de maneira uniforme, cada um. Note que assim ambos os pontos s\~{a}o sorteados de maneira uniforme entre todos os $\sum_{k} a_k b_k$ pontos de $R$.
+%
+
+    %Vamos determinar uma maneira de sortear um elemento $v=(x,y)$ de $R = \bigcup R_i$ de maneira uniforme. Primeiro, sorteia-se um \'{\i}ndice $r$ em $\{1,\ldots,n\}$ com probabilidade
+%    \begin{equation*}
+%      \PP{r=i} = \frac{|R_i|}{|R|} = \frac{a_i b_i}{\sum_{k=1}^{n} a_k b_k}.
+%    \end{equation*}
+%    Sorteado o \'{\i}ndice $r$, escolhemos aleatoriamente de maneira uniforme um elemento $v$ em $R_i$. Para ver que este processo determina $v$ de maneira uniforme em $R$, basta observar que
+%    \begin{equation*}
+%      \PP{v} =  \PP{v \in R_i} \PP{r=i} = \frac{1}{|R_i|}\; \frac{|R_i|}{|R|} = \frac{1}{|R|}.
+%    \end{equation*}
+
+    Vamos determinar uma maneira de sortear dois elementos $v_1=(x_1,y_1)$ e $v_2=(x_2,y_2)$ em $R$. Primeiro, sorteia-se um \'{\i}ndice $r$ em $\{1,\ldots,n\}$ com probabilidade
+    \begin{equation*}
+      \PP{r=i} = \frac{|R_i|}{|R|} = \frac{a_i b_i}{\sum_{k=1}^{n} a_k b_k}.
+    \end{equation*}
+    Sorteado o \'{\i}ndice $r$, escolhemos aleatoriamente e independentemente os elementos $v_1$ e $v_2$ de maneira uniforme em $R_i$. Deve-se observar que, cada um dos elementos $v_1$ e $v_2$ s\~{a}o uniformemente distribu\'{\i}dos dentre todos os elementos de $R$. Vejamos como podemos verificar isto. Por exemplo, determinemos a probabilidade de $v_1 = v$, para algum $v\in R_i$:
+    \begin{equation*}
+      \PP{v_1 = v;\; v_1\in R} =  \PP{v_1 = v;\; v_1 \in R_i} \PP{r=i} = \frac{1}{|R_i|}\; \frac{|R_i|}{|R|} = \frac{1}{|R|}.
+    \end{equation*}
+    Portanto a probabilidade de $v_1 = v$ n\~{a}o depende do fato de $v \in R_i$. E como isto \'{e} v\'{a}lido para todo $v\in R$, temos que $v_1$ possui distribui\c{c}\~{a}o uniforme em $R$.
+
+%    Agora sorteamos, de maneira independente, dois elementos $v_1=(x_1,y_1)$ e $v_2=(x_2,y_2)$ em $R$ como acima.
+    Pela independ\^{e}ncia entre $v_1$ e $v_2$ e uma vez que eles s\~{a}o escolhidos de maneira uniforme em $R$, devemos ter
+    \begin{equation*}
+      \HH{v_1,v_2} = \HH{v_1} + \HH{v_2} = 2\log{|R|} = \log{|R|^2}.
+    \end{equation*}
+
+    Por outro lado,
+    \begin{equation*}
+      \HH{v_1,v_2} = \HH{x_1,y_1,x_2,y_2} = \HH{(x_1,x_2),(y_1,y_2)} = \HH{X,Y},
+    \end{equation*}
+    onde denotamos por $X = (x_1,x_2)$ e $Y = (y_1,y_2)$. Veja que $X$ e $Y$ n\~{a}o necessariamente s\~{a}o distribu\'{\i}dos uniformemente nem muito menos de maneira independente. Agora $\supp{X} = \cup A_k \times A_k$, pois a escolha de $x_1$ e $x_2$ est\'{a} condicionada ao fato de ambos pertencerem ao mesmo conjunto $A_k$. Assim $|\supp{X}| = \sum_k a_k^2$. Analogamente, $|\supp{Y}| = \sum_k b_k^2$. Portanto, temos que
+    \begin{equation*}
+    \begin{array}{rcl}
+      \HH{X,Y} &\leq& \HH{X} + \HH{Y}\\
+       &\leq& \log{|\supp{X}|} + \log{|\supp{Y}|}\\
+       &=& \displaystyle \log{\left(\sum_k a_k^2 \right)} + \log{\left(\sum_k b_k^2 \right)}\\
+       &=& \displaystyle \log{\left[\left(\sum_k a_k^2 \right)\left(\sum_k b_k^2 \right)\right]}.
+    \end{array}
+    \end{equation*}
+
+    Portanto
+    \begin{equation*}
+      \log{|R|^2} \leq \log{\left(\sum_k a_k^2 \right)\left(\sum_k b_k^2 \right)}.
+    \end{equation*}
+    Ou seja,
+    \begin{equation*}
+      \left(\sum_{k=1}^{n} a_k b_k \right)^2 \leq \left(\sum_{k=1}^{n} a_k^2 \right)\left(\sum_{k=1}^{n} b_k^2 \right).
+    \end{equation*}
+    Que \'{e} a desigualdade de Cauchy-Swartz, provada no caso de $a_k$ e $b_k$ inteiros positivos. Para estend\^{e}-la para $a_k$ e $b_k$ n\'{u}meros reais positivos, deve-se proceder argumentando que para o caso de n\'{u}meros racionais \'{e} uma consequ\^{e}ncia do fato acima e para caso geral, a densidade dos n\'{u}meros racionais na reta \'{e} suficiente.
+\end{ex}
+
+A proposi\c{c}\~{a}o seguinte trata-se de uma generaliza\c{c}\~{a}o da subaditividade. Dado um conjunto finito $A = \{a_1,\ldots,a_m\}$, denotamos por $X_A$ o vetor aleat\'{o}rio $X_{A} = (X_{a_1},\ldots, X_{a_m})$. Assim $\HH{X_A} = \HH{X_{a_1},\ldots, X_{a_m}}$.
+
+\begin{proposicao}[Lema de Shearer]
+  Sejam $X_1,\ldots,X_n$ vari\'{a}veis aleat\'{o}rias com suporte finito definidas sobre o mesmo espa\c{c}o de probabilidade e sejam $A_1,\ldots,A_k$ subconjuntos de $[n]$. Suponha que cada elemento de $[n]$ perten\c{c}a a pelo menos $d$ conjuntos $A_i$. Ent\~{a}o
+  \begin{equation}
+    \HH{X_1,\ldots,X_n} \leq \frac{1}{d} \sum_{i=1}^{k} \HH{X_{A_k}}.
+  \end{equation}
+\end{proposicao}
+
+%O lema de Shearer costuma ser usado quando queremos estimar a entropia em um contexto global, mas somente somos capazes de estimar em contextos locais. Por exemplo, digamos que a entropia me\c{c}a a quantidade de $k$-colora\c{c}\~{o}es pr\'{o}prias de um grafo enorme, mas que n\~{a}o somos capazes de estim\'{a}-la diretamente. Contudo somos capazes de estimar a entropia para subgrafos pequenos. O lema de Shearer \'{e} ent\~{a}o a passagem do contexto local para o contexto global, nos permitindo, assim, uma estimativa global.
+
+\begin{proposicao}
+  Sejam $X$, $Y$ e $Z$ vari\'{a}veis aleat\'{o}rias com suporte finito definidas sobre o mesmo espa\c{c}o de probabilidade. Ent\~{a}o $\HH{X|Y,Z} \leq \HH{X|Y}$. Se $Y$ determina $Z$, temos que $\HH{X|Y} \leq \HH{X|Z}$.
+\end{proposicao}
+
+\section{Aplica\c{c}\~{o}es em teoria extremal dos conjuntos}
+Dado um n\'{u}mero real $p\in[0,1]$, definimos $H(p):[0,1]\rightarrow [0,1]$ como no exemplo \ref{ex1}: para $p = 0$ ou $p=1$, $H(p) := 0$; para $p\in(0,1)$,
+\begin{equation}
+  H(p) := -p\log{p} - (1-p)\log(1-p).
+\end{equation}
+Vimos no exemplo \ref{ex1} que $H(p)$ \'{e} a entropia de uma vari\'{a}vel aleat\'{o}ria com distribui\c{c}\~{a}o de Bernoulli com probabilidade de sucesso $p$.
+
+\begin{teorema}
+  Seja $\mathcal{F}$ uma fam\'{\i}lia de subconjuntos de $[n]$ e seja $p_i$ a fra\c{c}\~{a}o de conjuntos em $\mathcal{F}$ que cont\'{e}m $i$. Ent\~{a}o
+  \begin{equation}
+    |\mathcal{F}| \leq 2^{\sum_{i=1}^{n} H(p_i)}.
+  \end{equation}
+\end{teorema}
+
+
+\begin{teorema}
+  Sejam $n\geq 1$ e $0<p\leq 1/2$. Ent\~{a}o
+  \begin{equation}
+    \sum_{k=0}^{\lfloor pn \rfloor} \binom{n}{k} \leq 2^{H(p)n}.
+  \end{equation}
+\end{teorema}
+
+\section{Teorema de Br\'{e}gman}
+
+\begin{teorema}[Br\'{e}gman, 1973]
+  Seja $G:=G[L,R]$ um grafo bipartido com $|L| = |R|$. Ent\~{a}o
+  \begin{equation}
+    |\mathcal{M}_{p}(G)| \leq \prod_{v \in L} (d(v)!)^{\frac{1}{d(v)}}.
+  \end{equation}
+
+  \begin{proof}
+    Considere $M \in \mathcal{M}_p (G)$ um emparelhamento perfeito aleat\'{o}rio sorteado de maneira uniforme. Dado $v\in V(G)$, denotamos por $Mv$ o \'{u}nico v\'{e}rtice $w\in V(G)$ tal que $vw\in M$.
+
+    Seja $\prec$ uma ordena\c{c}\~{a}o total aleat\'{o}ria em $L$ sorteado de maneira uniforme. Podemos pensar em $\prec$ como uma bije\c{c}\~{a}o $\prec:L\rightarrow [n]$, onde $n = |L|$. Assim $v_1 \prec v_2$ se $\prec(v_1) < \prec(v_1)$. Escrevemos $v_1 \preceq v_2$ se $v_1\prec v_2$ ou $v_1 = v_2$.
+
+    Um emparelhamento $M$ e uma ordena\c{c}\~{a}o $\prec$ em $L$ induzem uma ordem $\prec_R$ em $R$: se $w_1,w_2\in R$, ent\~{a}o $w_1 \prec_R w_2$ se $M w_1 \prec M w_2$. Dado um v\'{e}rtice $v in L$, denotamos por $N(v)$ os v\'{e}rtices adjacentes a $v$ e
+    \begin{equation*}
+      N_{v}(M,\prec):= |\{w\in N(v):\; v \preceq Mw \}| = |\{w\in N(v):\; Mv \preceq_R w \}|,
+    \end{equation*}
+    a quantidade de v\'{e}rtices vizinhos de $v$ que s\~{a}o maior do que ou igual a $Mv$.
+
+    Para um v\'{e}rtice $v$ fixo e um emparelhamento perfeito $M$ dado, temos que
+    \begin{equation}\label{eq3.2}
+      \mathbb{P}_{\prec}[N_v(M,\prec)=k] = \frac{1}{d(v)}, \quad \forall k \in \{0,1,\ldots,d(v)-1\},
+    \end{equation}
+    onde $\mathbb{P}_{\prec}$ indica que o que est\'{a} sendo sorteado \'{e} a ordem aleat\'{o}ria. Para ver que isto \'{e} verdade, observe que, uma vez que $v$ e $M$ s\~{a}o dados, para determinarmos $N_v(M,\prec)$ \'{e} suficiente (bem como necess\'{a}rio) determinarmos a ordem de $Mv$ diante dos vizinhos de $v$. De fato, $N_v(M,\prec) = k$ significa que existem $k$ v\'{e}rtices $w\in R$ vinhos de $v$ tais que $w\succeq Mv$; assim $Mv$ possui a ordem determinada diante dos vizinhos de $v$, n\~{a}o importando a ordem dos demais v\'{e}rtices. Agora, temos $n!/d(v)$ ordens tais que a posi\c{c}\~{a}o de $Mv$ est\'{a} determinada diante dos $d(v)$ vizinhos de $v$. Logo a probabilidade de sorteamos uma dessas ordens \'{e} $1/d(v)$. Isto implica na equa\c{c}\~{a}o \ref{eq3.2}.
+
+    Vejamos a entropia de $M$. Observe que $M$ n\~{a}o \'{e} uma vari\'{a}vel aleat\'{o}ria. Contudo, como comentado assim que definimos a entropia, o que interessa para o c\'{a}lculo da entropia \'{e} a distribui\c{c}\~{a}o de probabilidade e n\~{a}o a natureza do objeto aleat\'{o}rio. Portanto faz sentido determinarmos $\HH{M}$. Tendo $M$ distribui\c{c}\~{a}o uniforme, temos que
+    \begin{equation}
+      \HH{M} = \log|\supp{M}| = \log |\mathcal{M}_p(G)|.
+    \end{equation}
+    O que devemos fazer \'{e} ent\~{a}o estimar $\HH{M}$. Isto \'{e} o que ser\'{a} feito no restante da prova.
+
+    Primeiro, para $\prec$ fixado, temos que
+    \begin{equation}
+      \HH{M} = \sum_{v\in L} \HH{Mv\Big|\underset{w \prec v}{Mw}}.
+    \end{equation}
+
+    Agora fixe $v\in L$. Suponha que $k = \prec(v)$ e que $v_1 \prec v_2 \prec \cdots \prec v_{k-1} \prec v$. Temos
+    \begin{equation}
+    \begin{array}{rcl}
+      \HH{Mv\Big|\underset{w \prec v}{Mw}} &=&  \HH{Mv|Mv_1,\ldots,Mv_{k-1}} \\
+      &=& \displaystyle \sum_{w_1,\ldots,w_{k-1}\in R} \PP{\underset{1 \leq i<k}{Mv_i=w_i}} \HH{Mv \Big|{\underset{1 \leq i<k}{Mv_i=w_i}}}\\
+      &=& \displaystyle \sum_{w_1,\ldots,w_{k-1}\in R} \;\;\sum_{w_k,\ldots,w_n\in R} \PP{\underset{1 \leq i<k}{Mv_i=w_i},{\underset{k\leq i\leq n}{Mv_i=w_i}}} \HH{Mv \Big|{\underset{1 \leq i<k}{Mv_i=w_i}}}\\
+      &=& \displaystyle \sum_{w_1,\ldots,w_n\in R} \PP{{\underset{1\leq i\leq n}{Mv_i=w_i}}} \HH{Mv \Big|{\underset{1 \leq i<k}{Mv_i=w_i}}}\\
+      &=& \displaystyle \sum_{\widetilde{M}} \PP{M = \tilde{M}} \HH{Mv \Big|{\underset{1 \leq i<k}{Mv_i=w_i}}}\\
+      &=& \displaystyle \sum_{j=1}^{d(v)} \sum_{\underset{N_v(\widetilde{M},\prec)=j}{\widetilde{M}}} \PP{M = \tilde{M}} \HH{Mv \Big|{\underset{1 \leq i<k}{Mv_i=w_i}}}\\
+      &\leq& \displaystyle \sum_{j=1}^{d(v)} \sum_{\underset{N_v(\widetilde{M},\prec)=j}{\widetilde{M}}} \PP{M = \tilde{M}} \log{j}\\
+      &=& \displaystyle \sum_{j=1}^{d(v)} \log{j} \left[\sum_{\underset{N_v(\widetilde{M},\prec)=j}{\widetilde{M}}} \PP{M = \tilde{M}}\right] \\
+      &=& \displaystyle \sum_{j=1}^{d(v)} \log{j} \;\mathbb{P}_{M} \left[N_v(M,\prec) = j\right] \\
+    \end{array}
+    \end{equation}
+    
+    Tomando o valor esperado em $\prec$, obtemos
+    \begin{equation}
+    \begin{array}{rcl}
+      \HH{M} &=& \displaystyle \sum_{v\in L} \mathbb{E}_{\prec}\left[\HH{Mv\Big|\underset{w \prec v}{Mw}}\right]\\
+       &\leq& \displaystyle \sum_{v\in L} \sum_{j=1}^{d(v)} \log{j} \;\mathbb{E}_{\prec}\left[\mathbb{P}_{M} \left[N_v(M,\prec) = j\right]\right]\\
+    \end{array}
+    \end{equation}
+    Para terminar a prova, basta provarmos que 
+    \begin{equation}
+      \mathbb{E}_{\prec}\left[\mathbb{P}_{M} \left[N_v(M,\prec) = j\right]\right] = \mathbb{E}_{M}\left[\mathbb{P}_{\prec} \left[N_v(M,\prec) = j\right]\right] = \frac{1}{d(v)}.
+    \end{equation}
+    Pois assim, teremos
+    \begin{equation}
+      \HH{M} \leq  \sum_{v\in L} \sum_{j=1}^{d(v)}  \frac{1}{d(v)}\log{j} = \displaystyle \sum_{v\in L} \frac{1}{d(v)} \log{d(v)!} = \displaystyle \log\left[  \prod_{v\in L}(d(v)!)^{\frac{1}{d(v)}}\right].
+    \end{equation}
+    Logo
+    \begin{equation}
+      \log|\mathcal{M}_p(G)| \leq \displaystyle \log\left[  \prod_{v\in L}(d(v)!)^{\frac{1}{d(v)}}\right].
+    \end{equation}
+    Como quer\'{\i}amos.
+  \end{proof}
+\end{teorema}
+
+\begin{teorema}
+  Seja $A = (a_{ij}) \in M(\{0,1\},n)$ uma matriz $n\times n$ de $0$ e $1$. Seja $r_i = \sum_{j} a_{ij}$ o n\'{u}mero de 1's na linha $i$. Ent\~{a}o
+  \begin{equation}
+    \perm{A} \leq \prod_{i=1}^{n} (r_i!)^{\frac{1}{r_i}}.
+  \end{equation}
+\end{teorema}
+
+\begin{teorema}[Kahn \& Lov\'{a}sz, 19??]
+  Seja $G=(V,E)$ um grafo qualquer. Ent\~{a}o
+  \begin{equation}
+    |\mathcal{M}_{p}(G)| \leq \prod_{v \in V} (d(v)!)^{\frac{1}{2d(v)}}.
+  \end{equation}
+\end{teorema}
+
+
+\section{Teorema de Galvin \& Tetali}
+
+\begin{teorema}[Galvin \& Tetali, 2004]
+  Sejam $G$ um grafo bipartido $d$-regular com $n$ v\'{e}rtices e $H$ um multigrafo qualquer. Ent\~{a}o
+  \begin{equation}
+    \hom(G,H) \leq \hom(K_{d,d},H)^{\frac{n}{2d}}.
+  \end{equation}
+\end{teorema}
+
+
+\begin{teorema}[Kahn \& Lawrenz, 2001]
+  Sejam $G$ um grafo bipartido $d$-regular com $n$ v\'{e}rtices. Ent\~{a}o
+  \begin{equation}
+    \ii(G) \leq \ii(K_{d,d})^{\frac{n}{2d}} = (2^{d+1}-1)^{\frac{n}{2d}}.
+  \end{equation}
+\end{teorema}
+
+
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+%   \'{I}NDICE REMISSIVO
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+%\printindex
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+%   BIBLIOGRAFIA
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\bibliographystyle{plain}
+\bibliography{Bibliografia}
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+%   FIM DO DOCUMENTO
+%--------------------------------------------------------------------------------------------------------------------------------------------------------
+\end{document} 
